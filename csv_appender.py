@@ -25,13 +25,14 @@ class csv_appender:
         """
         # progress of reading the source csv file
         # check if the a previous progress file exists
-        try:
-            with open(f"{source_csv[:-3]}_progress.txt", 'r') as file:
-                # continue from the progress
-                self.__row_read_progress = int(file.readline()) 
-        except:
-            print("no previous progress found")
-            self.__row_read_progress = progress 
+        # try:
+        #     with open(f"{source_csv[:-3]}_progress.txt", 'r') as file:
+        #         # continue from the progress
+        #         self.__row_read_progress = int(file.readline()) 
+        # except:
+        #     print("no previous progress found")
+        #     self.__row_read_progress = progress 
+        self.__row_read_progress = progress 
         # open the source csv file and
         # extract only columns 'C'(description) and 'H'(tactics)
         self.__source_csv = source_csv
@@ -39,8 +40,7 @@ class csv_appender:
         try: # try to open the source csv file
             self.__source_data = pd.read_csv(source_csv, 
                                             header=0,
-                                            usecols=["description", "tactics"],
-                                            skiprows=range(1,self.__row_read_progress))
+                                            usecols=["description", "tactics"])
         except FileNotFoundError: # if the file is not found
             raise FileNotFoundError(f"file {source_csv} not found!")
         
@@ -53,7 +53,8 @@ class csv_appender:
         # buffer to store the processed data
         self.__buffer = []
         # start the parse and append process
-        self.parse_and_append()
+        for i in [1,2]:
+            self.parse_and_append()
         
     def parse_and_append(self):
         try:
@@ -78,6 +79,7 @@ class csv_appender:
         """
         # get the description of from the source csv file
         description = str(self.__source_data[self.__row_read_progress][0])
+        description = self.filter("[(]((Citation: )|(https://))([\w\s./]*)[)]|(</code>)|(<code>)", description)
         description = description.split(".")
         # get the Tactics from the source csv file
         tactics = str(self.__source_data[self.__row_read_progress][1])
@@ -94,7 +96,6 @@ class csv_appender:
                 # ex. (https://www.rit.edu)
                 # ex. <code>
                 # ex. </code>       
-                sentense = self.filter("[(]((Citation: )|(https://))([\w\s./]*)[)]|(</code>)|(<code>)", sentense)
                 self.__buffer.append(f"\"{sentense.strip()}\",{tactics}")
     
     def append_to_destination(self) -> None:
@@ -121,7 +122,9 @@ class csv_appender:
         """
         matches = re.findall(regEx, sentense)
         for match in matches:
-            sentense.replace(match, "")
+            for token in match:
+                if token != "":
+                    sentense = sentense.replace(token, "")
         return sentense
 
 if __name__ == "__main__":
