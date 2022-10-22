@@ -23,9 +23,9 @@ class csv_appender:
             source_csv (str): source of the csv file to be processed.
             destination_csv (str): destination csv file to append to.
         """
-        # progress of reading the source csv file
+        # progress of reading the source csv file  
         # check if the a previous progress file exists
-        # try:
+        # try:    # disabled now for debugging purposes
         #     with open(f"{source_csv[:-3]}_progress.txt", 'r') as file:
         #         # continue from the progress
         #         self.__row_read_progress = int(file.readline()) 
@@ -79,7 +79,12 @@ class csv_appender:
         """
         # get the description of from the source csv file
         description = str(self.__source_data[self.__row_read_progress][0])
-        description = self.filter("[(]((Citation: )|(https://))([\w\s./]*)[)]|(</code>)|(<code>)", description)
+        description.replace("\n", " ") # remove new line characters to better apply regular expression
+        # apply regular expression 
+        description = self.filter("[(](Citation: )([\w\s./]*)[)]"+
+                                  "|[(](https://)([\w\s./]*)[)]"+
+                                  "|(</code>)"+
+                                  "|(<code>)", description)
         description = description.split(".")
         # get the Tactics from the source csv file
         tactics = str(self.__source_data[self.__row_read_progress][1])
@@ -128,5 +133,5 @@ class csv_appender:
         return sentense
 
 if __name__ == "__main__":
-    csv_appender("enterprise-attack-v11.3.csv", "MITRE_Dataset.csv")
-    
+    # csv_appender("enterprise-attack-v11.3.csv", "MITRE_Dataset.csv")
+    csv_appender("testin.csv", "testout.csv")
