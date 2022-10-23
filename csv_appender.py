@@ -55,6 +55,7 @@ class csv_appender:
         # start the parse and append process
         for i in [1,2]:
             self.parse_and_append()
+            self.__buffer = [] # clear the buffer after each iteration
         
     def parse_and_append(self):
         try:
@@ -79,13 +80,17 @@ class csv_appender:
         """
         # get the description of from the source csv file
         description = str(self.__source_data[self.__row_read_progress][0])
-        description.replace("\n", " ") # remove new line characters to better apply regular expression
-        # apply regular expression 
-        description = self.filter("[(](Citation: )([\w\s./]*)[)]"+
-                                  "|[(](https://)([\w\s./]*)[)]"+
-                                  "|(</code>)"+
-                                  "|(<code>)", description)
+        description = description.replace("\n", " ") # remove new line characters to better apply regular expression
+        
+        # apply regular expression to remove unwanted stuff 
+        # filter out citation, and web link string in the sentense         
+                # ex. (Citation: RIT library)
+                # ex. (https://www.rit.edu)
+                # ex. <code>
+                # ex. </code>
+        description = self.filter("(\(Citation:[\w\s]*\))|(\(https://[\w\s\./]*\))|(</code>)|(<code>)", description)
         description = description.split(".")
+        
         # get the Tactics from the source csv file
         tactics = str(self.__source_data[self.__row_read_progress][1])
         tactics = tactics.replace(" ", "_") # replace spaces with underscores
@@ -95,12 +100,7 @@ class csv_appender:
         for sentense in description:
             # each element in the buffer represents a line in the csv file
             # they will be appended in the destination csv file later
-            if not((sentense in ["", " ", "\n", NONE])): # ignore any empty sentenses
-                # filter out citation, and web link string in the sentense         
-                # ex. (Citation: RIT library)
-                # ex. (https://www.rit.edu)
-                # ex. <code>
-                # ex. </code>       
+            if not((sentense in ["", " ", "\n", NONE])): # ignore any empty sentenses       
                 self.__buffer.append(f"\"{sentense.strip()}\",{tactics}")
     
     def append_to_destination(self) -> None:
@@ -119,7 +119,8 @@ class csv_appender:
 
     def filter(self, regEx: str, sentense: str) -> str:
         """filter out stuff we don't want from the string
-
+           NOTE: this method is DISABLED because the passed in regEx string
+           will automatically double slash all the single backslashes in the string
         Args:
             sentense (str): the string to be filtered
             regEx (str): the regular expression pattern to be removed
