@@ -1,9 +1,15 @@
 # 
 # file: csv_appender.py
+# description: Appends a csv file to another csv file line by line
+#              specifically, it finds two desired columns in the source file
+#              column 1 will be the paragraph, and column 2 will be the label.
+#              appends each line of the paragraph followed by their labels to
+#              the destination file.
+#              Note: this script will also filter out unwanted content in the 
+#              paragraph column. It will citations, web links, "</code><code>"
 # @Author: Steve Wufeng
 from pickle import NONE
 import pandas as pd
-import csv
 import numpy as np
 import re
 
@@ -15,8 +21,7 @@ class csv_appender:
     __slots__ = ["__source_csv","__source_data", "__destination_csv", "__buffer",
                  "__row_read_progress"]
     
-    def __init__(self, source_csv: str, destination_csv: str, 
-                 progress: int = 0) -> None:
+    def __init__(self, source_csv: str, destination_csv: str) -> None:
         """constructor for a csv_appender object.
         
         Args:
@@ -31,9 +36,9 @@ class csv_appender:
                 self.__row_read_progress = int(file.readline()) 
         except:
             print("no previous progress found")
-            self.__row_read_progress = progress 
+            self.__row_read_progress = 0 
         
-        # self.__row_read_progress = progress # uncomment this line will start from the beginning
+        self.__row_read_progress = 0 # uncomment this line will start from the beginning
         # open the source csv file and
         # extract only columns 'C'(description) and 'H'(tactics)
         self.__source_csv = source_csv
@@ -94,7 +99,7 @@ class csv_appender:
                 # ex. (https://www.rit.edu)
                 # ex. <code>
                 # ex. </code>
-        description = self.filter("(\(Citation:[\w\s]*\))|(\(https://[\w\s\./]*\))|(</code>)|(<code>)", description)
+        description = self.filter("(\(Citation:.*\))|(\(https://[\w\s\./]*\))|(</code>)|(<code>)", description)
         description = description.split(".")
         
         # get the Tactics from the source csv file
@@ -139,4 +144,5 @@ class csv_appender:
 
 if __name__ == "__main__":
     # csv_appender("enterprise-attack-v11.3.csv", "MITRE_Dataset.csv")
+    # csv_appender("enterprise-attack-v11.3.csv", "testout2.csv")
     csv_appender("testin.csv", "testout.csv")

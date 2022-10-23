@@ -4,3 +4,5 @@ description,tactics,random
 protection level.(Citation: SANS UAC Bypass)","TACTICS_123,TACTICS_456",blabla
 some sentence here,"blue_123,red_456",bluelue
 may be indicative of [Process Injection](https://attack.mitre.org/techniques/T1055) and unusual loaded DLLs through [DLL Search Order Hijacking](https://attack.mitre.org/techniques/T1574/001), which indicate attempts to gain access to higher privileged processes.,"tactics_123,abc_234",
+Why bad?(Citation: AppleDocs AuthorizationExecuteWithPrivileges), 
+"sudo (sometimes referred to as ""superuser do"")", tictic,
