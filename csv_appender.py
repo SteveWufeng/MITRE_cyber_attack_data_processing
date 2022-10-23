@@ -25,14 +25,15 @@ class csv_appender:
         """
         # progress of reading the source csv file  
         # check if the a previous progress file exists
-        # try:    # disabled now for debugging purposes
-        #     with open(f"{source_csv[:-3]}_progress.txt", 'r') as file:
-        #         # continue from the progress
-        #         self.__row_read_progress = int(file.readline()) 
-        # except:
-        #     print("no previous progress found")
-        #     self.__row_read_progress = progress 
-        self.__row_read_progress = progress 
+        try:    
+            with open(f"{source_csv[:-3]}_progress.txt", 'r') as file:
+                # continue from the progress
+                self.__row_read_progress = int(file.readline()) 
+        except:
+            print("no previous progress found")
+            self.__row_read_progress = progress 
+        
+        # self.__row_read_progress = progress # uncomment this line will start from the beginning
         # open the source csv file and
         # extract only columns 'C'(description) and 'H'(tactics)
         self.__source_csv = source_csv
@@ -53,7 +54,8 @@ class csv_appender:
         # buffer to store the processed data
         self.__buffer = []
         # start the parse and append process
-        for i in [1,2]:
+        
+        while(self.__row_read_progress < len(self.__source_data)):
             self.parse_and_append()
             self.__buffer = [] # clear the buffer after each iteration
         
@@ -78,6 +80,10 @@ class csv_appender:
         """process one line of data in the source csv file.
             this method updates the __buffer attribute. 
         """
+        # first check if we have reached the end of the database
+        if (self.__row_read_progress > len(self.__source_data)):
+            print("Process complete! Nothing else to do!")
+            
         # get the description of from the source csv file
         description = str(self.__source_data[self.__row_read_progress][0])
         description = description.replace("\n", " ") # remove new line characters to better apply regular expression
@@ -101,7 +107,7 @@ class csv_appender:
             # each element in the buffer represents a line in the csv file
             # they will be appended in the destination csv file later
             if not((sentense in ["", " ", "\n", NONE])): # ignore any empty sentenses       
-                self.__buffer.append(f"\"{sentense.strip()}\",{tactics}")
+                self.__buffer.append(f"\"{sentense.strip()}.\",{tactics}")
     
     def append_to_destination(self) -> None:
         """simply append the buffer to the destination csv file.
@@ -119,8 +125,6 @@ class csv_appender:
 
     def filter(self, regEx: str, sentense: str) -> str:
         """filter out stuff we don't want from the string
-           NOTE: this method is DISABLED because the passed in regEx string
-           will automatically double slash all the single backslashes in the string
         Args:
             sentense (str): the string to be filtered
             regEx (str): the regular expression pattern to be removed
