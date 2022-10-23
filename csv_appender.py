@@ -92,7 +92,8 @@ class csv_appender:
         # get the description of from the source csv file
         description = str(self.__source_data[self.__row_read_progress][0])
         description = description.replace("\n", " ") # remove new line characters to better apply regular expression
-        
+        description = description.replace("\"", "\"\"") # add an extra " to escape the " character
+                                                        # this is to make sure the csv file is valid
         # apply regular expression to remove unwanted stuff 
         # filter out citation, and web link string in the sentense         
                 # ex. (Citation: RIT library)
@@ -104,6 +105,7 @@ class csv_appender:
         
         # get the Tactics from the source csv file
         tactics = str(self.__source_data[self.__row_read_progress][1])
+        tactics = tactics.replace(", ", ",") # remove the space after the comma
         tactics = tactics.replace(" ", "_") # replace spaces with underscores
         tactics = tactics.upper()   # upper case the tactics
         
@@ -111,7 +113,8 @@ class csv_appender:
         for sentense in description:
             # each element in the buffer represents a line in the csv file
             # they will be appended in the destination csv file later
-            if not((sentense in ["", " ", "\n", NONE])): # ignore any empty sentenses       
+            if not((sentense in ["", " ", "\n", NONE]) or (len(sentense) < 5)
+                   ): # ignore any empty sentenses       
                 self.__buffer.append(f"\"{sentense.strip()}.\",{tactics}")
     
     def append_to_destination(self) -> None:
@@ -135,14 +138,19 @@ class csv_appender:
             regEx (str): the regular expression pattern to be removed
             
         """
-        matches = re.findall(regEx, sentense)
-        for match in matches:
-            for token in match:
-                if token != "":
-                    sentense = sentense.replace(token, "")
+        # disabled because there is a better way to do this
+        # matches = re.findall(regEx, sentense) 
+        # for match in matches:
+        #     for token in match:
+        #         if token != "":
+        #             sentense = sentense.replace(token, "")
+       
+        # use the sub method to replace the unwanted stuff with empty string
+        sentense = re.sub(regEx, "", sentense)
+        
         return sentense
 
 if __name__ == "__main__":
     # csv_appender("enterprise-attack-v11.3.csv", "MITRE_Dataset.csv")
-    # csv_appender("enterprise-attack-v11.3.csv", "testout2.csv")
-    csv_appender("testin.csv", "testout.csv")
+    csv_appender("enterprise-attack-v11.3.csv", "testout2.csv")
+    # csv_appender("testin.csv", "testout.csv")
