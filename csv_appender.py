@@ -8,10 +8,10 @@
 #              Note: this script will also filter out unwanted content in the 
 #              paragraph column. It will citations, web links, "</code><code>"
 # @Author: Steve Wufeng
-from pickle import NONE
 import pandas as pd
 import numpy as np
 import re
+
 
 class csv_appender:
     """processes a csv file and appends each line to another
@@ -91,17 +91,30 @@ class csv_appender:
             
         # get the description of from the source csv file
         description = str(self.__source_data[self.__row_read_progress][0])
-        description = description.replace("\n", " ") # remove new line characters to better apply regular expression
+        
+        # we no longer need to replace newlines because, we are separating
+        # sentenses by (\. +[A-Z])|(\n+[A-Z]) 
+        # remove new line characters to better apply regular expression
+        # description = description.replace("\n", " ") # no longer need
         description = description.replace("\"", "\"\"") # add an extra " to escape the " character
                                                         # this is to make sure the csv file is valid
-        # apply regular expression to remove unwanted stuff 
+        # apply regular expressions and match case to remove unwanted stuff 
         # filter out citation, and web link string in the sentense         
                 # ex. (Citation: RIT library)
                 # ex. (https://www.rit.edu)
                 # ex. <code>
                 # ex. </code>
-        description = self.filter("(\(Citation:.*\))|(\(https://[\w\s\./]*\))|(</code>)|(<code>)", description)
-        description = description.split(".")
+        description = self.filter("(\(Citation:.*\))|"+
+                                  "(\(https://[\w\s\./]*\))",description)
+        description = description.replace("<code>", "")
+        description = description.replace("</code>", "")
+        
+        # split the sentense by (\. +[A-Z])|(\n+[A-Z])
+        # first convert description to a pandas series
+        description = pd.Series(description)
+        # then use the str.split() method to split the sentense
+        # description should be the list of sentenses after splitting
+        description = description.str.split("(\. +(?=[A-Z]))|(\n+(?=[A-Z]))")[0]
         
         # get the Tactics from the source csv file
         tactics = str(self.__source_data[self.__row_read_progress][1])
@@ -113,9 +126,9 @@ class csv_appender:
         for sentense in description:
             # each element in the buffer represents a line in the csv file
             # they will be appended in the destination csv file later
-            if not((sentense in ["", " ", "\n", NONE]) or (len(sentense) < 5)
+            if not((sentense in ["", " ", "\n", None]) or (len(sentense) < 5)
                    ): # ignore any empty sentenses       
-                self.__buffer.append(f"\"{sentense.strip()}.\",{tactics}")
+                self.__buffer.append(f"\"{sentense.strip()}\",{tactics}")
     
     def append_to_destination(self) -> None:
         """simply append the buffer to the destination csv file.
@@ -138,13 +151,6 @@ class csv_appender:
             regEx (str): the regular expression pattern to be removed
             
         """
-        # disabled because there is a better way to do this
-        # matches = re.findall(regEx, sentense) 
-        # for match in matches:
-        #     for token in match:
-        #         if token != "":
-        #             sentense = sentense.replace(token, "")
-       
         # use the sub method to replace the unwanted stuff with empty string
         sentense = re.sub(regEx, "", sentense)
         
