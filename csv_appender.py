@@ -128,7 +128,12 @@ class csv_appender:
             # they will be appended in the destination csv file later
             if not((sentense in ["", " ", "\n", None]) or (len(sentense) < 5)
                    ): # ignore any empty sentenses       
-                self.__buffer.append(f"\"{sentense.strip()}\",{tactics}")
+                sentense = sentense.strip() # remove any leading or trailing spaces
+                if (sentense[-1] == '.'):
+
+                    self.__buffer.append(f"\"{sentense}\",{tactics}")
+                else:
+                    self.__buffer.append(f"\"{sentense}.\",{tactics}")
     
     def append_to_destination(self) -> None:
         """simply append the buffer to the destination csv file.
