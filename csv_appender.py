@@ -8,6 +8,7 @@
 #              Note: this script will also filter out unwanted content in the 
 #              paragraph column. It will citations, web links, "</code><code>"
 # @Author: Steve Wufeng
+import csv
 import pandas as pd
 import numpy as np
 import re
@@ -162,6 +163,11 @@ class csv_appender:
         return sentense
 
 if __name__ == "__main__":
-    # csv_appender("enterprise-attack-v11.3.csv", "MITRE_Dataset.csv")
-    csv_appender("enterprise-attack-v11.3.csv", "testout2.csv")
+    # main section
+    csv_appender("enterprise-attack-v11.3.csv", "MITRE_Dataset_Modified.csv")
+    csv_appender("ics-attack-v12.0.csv", "MITRE_Dataset_Modified.csv")
+    csv_appender("mobile-attack-v12.0.csv", "MITRE_Dataset_Modified.csv")
+    
+    # Testing section
+    # csv_appender("enterprise-attack-v11.3.csv", "testout2.csv")
     # csv_appender("testin.csv", "testout.csv")
