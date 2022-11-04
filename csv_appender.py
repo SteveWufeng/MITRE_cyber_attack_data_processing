@@ -6,9 +6,8 @@
 #              appends each line of the paragraph followed by their labels to
 #              the destination file.
 #              Note: this script will also filter out unwanted content in the 
-#              paragraph column. It will citations, web links, "</code><code>"
+#              paragraph column such as citations, web links, "</code><code>"
 # @Author: Steve Wufeng
-import csv
 import pandas as pd
 import numpy as np
 import re
@@ -155,9 +154,11 @@ class csv_appender:
         Args:
             sentense (str): the string to be filtered
             regEx (str): the regular expression pattern to be removed
+        Returns:
+            sentense (str): the filtered string
             
         """
-        # use the sub method to replace the unwanted stuff with empty string
+        # use the sub method to replace the unwanted stuff with empty string``
         sentense = re.sub(regEx, "", sentense)
         
         return sentense
