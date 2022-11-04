@@ -165,9 +165,12 @@ class csv_appender:
 
 if __name__ == "__main__":
     # main section
-    csv_appender("enterprise-attack-v11.3.csv", "MITRE_Dataset_Modified.csv")
-    csv_appender("ics-attack-v12.0.csv", "MITRE_Dataset_Modified.csv")
-    csv_appender("mobile-attack-v12.0.csv", "MITRE_Dataset_Modified.csv")
+    csv_appender("data_raw/enterprise-attack-v11.3.csv", 
+                 "data_processed/MITRE_Dataset_Modified.csv")
+    csv_appender("data_raw/ics-attack-v12.0.csv", 
+                 "data_processed/MITRE_Dataset_Modified.csv")
+    csv_appender("data_raw/mobile-attack-v12.0.csv", 
+                 "data_processed/MITRE_Dataset_Modified.csv")
     
     # Testing section
     # csv_appender("enterprise-attack-v11.3.csv", "testout2.csv")
